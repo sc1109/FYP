@@ -1,7 +1,7 @@
 function [ u, v ] = genSquares( x, y, z, t, f )
 
 sq1 = ones(300, 300, 3);
-sq1(x,y,1:2) = 0;
+sq1(min(x):max(x),min(y):max(y),1:2) = 0;
 figure;
 subplot(3,2,1);
 image(sq1);
@@ -19,42 +19,42 @@ u(1,3) = max(x) - 150;
 v(1,3) = max(y) - 150;
 
 for n = 1:5
-    u(n+1,1) = floor(u(n,1) + (f*u(1,1))/(z-n*t));
+    u(n+1,1) = floor(u(n,1) + (f*u(1,1))/(z(1)-n*t));
     if(u(n+1,1)<-149)
         u(n+1,1)=-149;
     end
     if(u(n+1,1)>150)
         u(n+1,1)=150;
     end
-    v(n+1,1) = floor(v(n,1) + (f*v(1,1))/(z-n*t));
+    v(n+1,1) = floor(v(n,1) + (f*v(1,1))/(z(1)-n*t));
     if(v(n+1,1)<-149)
         v(n+1,1)=-149;
     end
     if(v(n+1,1)>150)
         v(n+1,1)=150;
     end
-    u(n+1,2) = floor(u(n,2) + (f*u(1,2))/(z-n*t));
+    u(n+1,2) = floor(u(n,2) + (f*u(1,2))/(z(2)-n*t));
     if(u(n+1,2)<-149)
         u(n+1,2)=-149;
     end
     if(u(n+1,2)>150)
         u(n+1,2)=150;
     end
-    v(n+1,2) = floor(v(n,2) + (f*v(1,2))/(z-n*t));
+    v(n+1,2) = floor(v(n,2) + (f*v(1,2))/(z(2)-n*t));
     if(v(n+1,2)<-149)
         v(n+1,2)=-149;
     end
     if(v(n+1,2)>150)
         v(n+1,2)=150;
     end
-    u(n+1,3) = floor(u(n,3) + (f*u(1,3))/(z-n*t));
+    u(n+1,3) = floor(u(n,3) + (f*u(1,3))/(z(3)-n*t));
     if(u(n+1,3)<-149)
         u(n+1,3)=-149;
     end
     if(u(n+1,3)>150)
         u(n+1,3)=150;
     end
-    v(n+1,3) = floor(v(n,3) + (f*v(1,3))/(z-n*t));
+    v(n+1,3) = floor(v(n,3) + (f*v(1,3))/(z(3)-n*t));
     if(v(n+1,3)<-149)
         v(n+1,3)=-149;
     end
