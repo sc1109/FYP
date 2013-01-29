@@ -1,0 +1,120 @@
+function [ u, v ] = genSquares( xyz, t, f )
+
+% a = figure;
+% subplot(3,2,1);
+% [X,Y] = meshgrid(xyz(1,:),xyz(2,:));
+% Z = meshgrid(xyz(3,:));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+
+b = figure;
+subplot(3,2,1);
+patch(xyz(1,:),xyz(2,:),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+u = zeros(6,4);
+v = zeros(6,4);
+w = zeros(6,4);
+u(1,:) = xyz(1,:) - 150;
+v(1,:) = xyz(2,:) - 150;
+w(:,:) = cat(1,xyz(3,:),xyz(3,:),xyz(3,:),xyz(3,:),xyz(3,:),xyz(3,:));
+
+for n = 1:5
+    for m = 1:4
+        u(n+1,m) = round(u(n,m) + (f*u(1,m))/(w(1,m)-n*t));
+        if(u(n+1,m)<-149)
+            u(n+1,m)=-149;
+        end
+        if(u(n+1,m)>150)
+            u(n+1,m)=150;
+        end
+        v(n+1,m) = round(v(n,m) + (f*v(1,m))/(w(1,m)-n*t));
+        if(v(n+1,m)<-149)
+            v(n+1,m)=-149;
+        end
+        if(v(n+1,m)>150)
+            v(n+1,m)=150;
+        end
+     
+
+        if (w(1,1)<(n+1)*t && w(1,2)<(n+1)*t && w(1,3)<(n+1)*t && w(1,4)<(n+1)*t)
+            u(n+1,:)=-149;
+            v(n+1,:)=-149;
+        end
+    end
+end
+
+u = u + 150;
+v = v + 150;
+
+uvw_part=zeros(3,4,6);
+for n=1:6
+uvw_part(:,:,n) = cat(1,u(n,:),v(n,:),w(n,:));
+end
+uvw = cat(3,uvw_part(:,:,1:6));
+
+% figure(a);
+% subplot(3,2,2);
+% [X,Y] = meshgrid(uvw(1,:,2),uvw(2,:,2));
+% Z = meshgrid(uvw(3,:,2));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+% 
+% subplot(3,2,3);
+% [X,Y] = meshgrid(uvw(1,:,3),uvw(2,:,3));
+% Z = meshgrid(uvw(3,:,3));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+% 
+% subplot(3,2,4);
+% [X,Y] = meshgrid(uvw(1,:,4),uvw(2,:,4));
+% Z = meshgrid(uvw(3,:,4));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+% 
+% subplot(3,2,5);
+% [X,Y] = meshgrid(uvw(1,:,5),uvw(2,:,5));
+% Z = meshgrid(uvw(3,:,5));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+% 
+% subplot(3,2,6);
+% [X,Y] = meshgrid(uvw(1,:,6),uvw(2,:,6));
+% Z = meshgrid(uvw(3,:,6));
+% surf(X,Z,Y);
+% axis([0 300 0 300 0 300]);
+% daspect([1 1 1]);
+
+figure(b);
+subplot(3,2,2);
+patch(uvw(1,:,2),uvw(2,:,2),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+subplot(3,2,3);
+patch(uvw(1,:,3),uvw(2,:,3),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+subplot(3,2,4);
+patch(uvw(1,:,4),uvw(2,:,4),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+subplot(3,2,5);
+patch(uvw(1,:,5),uvw(2,:,5),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+subplot(3,2,6);
+patch(uvw(1,:,6),uvw(2,:,6),'blue');
+axis([0 300 0 300]);
+daspect([1 1 1]);
+
+end
